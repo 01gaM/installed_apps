@@ -20,9 +20,11 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.installedapps.R
 import com.example.installedapps.common.ui.theme.InstalledAppsTheme
 import com.example.installedapps.features.app_info.ui.mvi.AppInfoScreenEvent
 import com.example.installedapps.features.app_info.ui.mvi.AppInfoScreenState
@@ -39,7 +41,7 @@ fun AppInfoScreenContent(
             TopAppBar(
                 title = {
                     Text(
-                        text = "Информация о приложении",
+                        text = stringResource(R.string.appInfoScreen_title),
                         color = MaterialTheme.colorScheme.onPrimary
                     )
                 },
@@ -73,7 +75,7 @@ fun AppInfoScreenContent(
                     .padding(top = 16.dp),
                 onClick = { onEvent(AppInfoScreenEvent.OpenAppClicked) },
                 content = {
-                    Text(text = "Открыть".uppercase())
+                    Text(text = stringResource(R.string.appInfoScreen_openAppButton).uppercase())
                 }
             )
         }
@@ -103,11 +105,18 @@ private fun AppDescriptionField(
 
 @Composable
 private fun AppDescription(appInfo: AppInfoScreenState) {
-    with(appInfo) {
-        AppDescriptionField(title = "Название", description = name)
-        AppDescriptionField(title = "Версия", description = version)
-        AppDescriptionField(title = "Имя пакета", description = packageName)
-        AppDescriptionField(title = "Контрольная сумма", description = checkSum)
+    val fields = listOf(
+        R.string.appInfoScreen_descriptionField_name to appInfo.name,
+        R.string.appInfoScreen_descriptionField_version to appInfo.version,
+        R.string.appInfoScreen_descriptionField_packageName to appInfo.packageName,
+        R.string.appInfoScreen_descriptionField_checkSum to appInfo.checkSum,
+    )
+
+    fields.forEach { (titleRes, description) ->
+        AppDescriptionField(
+            title = stringResource(titleRes),
+            description = description
+        )
     }
 }
 

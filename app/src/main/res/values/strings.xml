@@ -1,3 +1,16 @@
 <resources>
+    <!--    Common-->
     <string name="app_name">Installed Apps</string>
+
+    <!--    AppListScreen-->
+    <string name="appListScreen_title">Установленные приложения</string>
+    <string name="appListScreen_emptyState">Нет установленных приложений</string>
+
+    <!--    AppInfoScreen-->
+    <string name="appInfoScreen_title">Информация о приложении</string>
+    <string name="appInfoScreen_openAppButton">Открыть</string>
+    <string name="appInfoScreen_descriptionField_name">Название</string>
+    <string name="appInfoScreen_descriptionField_version">Версия</string>
+    <string name="appInfoScreen_descriptionField_packageName">Имя пакета</string>
+    <string name="appInfoScreen_descriptionField_checkSum">Контрольная сумма</string>
 </resources>
