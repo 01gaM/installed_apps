@@ -13,6 +13,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -24,6 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.rememberNavController
 import com.example.installedapps.R
 import com.example.installedapps.common.ui.theme.InstalledAppsTheme
 import com.example.installedapps.features.app_info.ui.mvi.AppInfoScreenEvent
@@ -36,6 +38,7 @@ fun AppInfoScreenContent(
     state: AppInfoScreenState,
     onEvent: (AppInfoScreenEvent) -> Unit
 ) {
+    val navController = rememberNavController()
     Scaffold(
         topBar = {
             TopAppBar(
@@ -46,11 +49,16 @@ fun AppInfoScreenContent(
                     )
                 },
                 navigationIcon = {
-                    Icon(
-                        modifier = Modifier.padding(all = 8.dp),
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onPrimary
+                    IconButton(
+                        onClick = { navController.navigateUp() },
+                        content = {
+                            Icon(
+                                modifier = Modifier.padding(all = 8.dp),
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.onPrimary
+                            )
+                        }
                     )
                 },
                 colors = TopAppBarDefaults.topAppBarColors()
@@ -73,7 +81,7 @@ fun AppInfoScreenContent(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 16.dp),
-                onClick = { onEvent(AppInfoScreenEvent.OpenAppClicked) },
+                onClick = { onEvent(AppInfoScreenEvent.OpenAppButtonClicked) },
                 content = {
                     Text(text = stringResource(R.string.appInfoScreen_openAppButton).uppercase())
                 }

@@ -10,7 +10,7 @@ class AppInfoScreenViewModel : ViewModel() {
 
     fun onEvent(event: AppInfoScreenEvent) {
         when (event) {
-            AppInfoScreenEvent.OpenAppClicked -> TODO()
+            AppInfoScreenEvent.OpenAppButtonClicked -> TODO()
         }
     }
 }
