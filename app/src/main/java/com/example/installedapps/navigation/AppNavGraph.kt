@@ -10,12 +10,12 @@ import com.example.installedapps.features.app_list.ui.AppListScreen
 
 @Composable
 fun AppNavGraph(navController: NavHostController = rememberNavController()) {
-    NavHost(navController, startDestination = "apps") {
-        composable("app_list") {
-//            AppListScreen()
+    NavHost(navController, startDestination = Screen.AppList.route) {
+        composable(Screen.AppList.route) {
+            AppListScreen()
         }
-        composable("app_info") {
-//            AppInfoScreen()
+        composable(Screen.AppInfo.route) {
+            AppInfoScreen()
         }
     }
 }
