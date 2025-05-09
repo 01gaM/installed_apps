@@ -1,5 +1,6 @@
 package com.example.installedapps.di
 
+import com.example.installedapps.features.app_info.domain.usecase.GetAppInfoUseCase
 import com.example.installedapps.features.app_list.domain.repository.AppsRepository
 import com.example.installedapps.features.app_list.domain.usecase.GetInstalledAppsUseCase
 import dagger.Module
@@ -13,5 +14,10 @@ class UseCaseModule {
     @Provides
     fun getGetInstalledAppsUseCase(appsRepository: AppsRepository): GetInstalledAppsUseCase {
         return GetInstalledAppsUseCase(appsRepository = appsRepository)
+    }
+
+    @Provides
+    fun getGetAppInfoUseCase(appsRepository: AppsRepository): GetAppInfoUseCase {
+        return GetAppInfoUseCase(appsRepository = appsRepository)
     }
 }

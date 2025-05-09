@@ -1,5 +1,6 @@
 package com.example.installedapps.features.app_list.data.repository
 
+import com.example.installedapps.features.app_info.domain.model.AppInfo
 import com.example.installedapps.features.app_list.domain.model.AppListItem
 import com.example.installedapps.features.app_list.domain.repository.AppsRepository
 import javax.inject.Inject
@@ -20,6 +21,16 @@ class AppsRepositoryImpl @Inject constructor() : AppsRepository {
                 name = "TestApp3",
                 packageName = "com.example.test3"
             )
+        )
+    }
+
+    override suspend fun getAppInfo(packageName: String): AppInfo? {
+        // TODO: remove mock
+        return AppInfo(
+            name = "MyAppName",
+            version = "1.2.0",
+            packageName = "com.example.test",
+            checkSum = "checksum"
         )
     }
 }
