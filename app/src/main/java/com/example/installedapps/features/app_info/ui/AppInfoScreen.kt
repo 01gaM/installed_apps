@@ -9,8 +9,15 @@ import com.example.installedapps.features.app_info.ui.compose_views.AppInfoScree
 import com.example.installedapps.features.app_info.ui.mvi.AppInfoScreenViewModel
 
 @Composable
-fun AppInfoScreen(navController: NavController) {
-    val viewModel: AppInfoScreenViewModel = hiltViewModel()
+fun AppInfoScreen(
+    navController: NavController,
+    packageName: String
+) {
+    val viewModel: AppInfoScreenViewModel = hiltViewModel(
+        creationCallback = { factory: AppInfoScreenViewModel.AppInfoScreenViewModelFactory ->
+            factory.create(packageName)
+        }
+    )
     val state by viewModel.uiState.collectAsState()
 
     AppInfoScreenContent(
