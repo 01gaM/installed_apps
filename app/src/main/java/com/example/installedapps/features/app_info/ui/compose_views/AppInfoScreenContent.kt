@@ -25,6 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.installedapps.R
 import com.example.installedapps.common.ui.theme.InstalledAppsTheme
@@ -35,10 +36,10 @@ import com.example.installedapps.features.app_info.ui.mvi.AppInfoScreenState
 @Composable
 fun AppInfoScreenContent(
     modifier: Modifier = Modifier,
+    navController: NavController,
     state: AppInfoScreenState,
     onEvent: (AppInfoScreenEvent) -> Unit
 ) {
-    val navController = rememberNavController()
     Scaffold(
         topBar = {
             TopAppBar(
@@ -144,6 +145,7 @@ private fun AppsListScreenContentPreview() {
                 packageName = "com.example.test",
                 checkSum = "checksum"
             ),
+            navController = rememberNavController(),
             onEvent = {}
         )
     }

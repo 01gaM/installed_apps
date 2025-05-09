@@ -20,7 +20,7 @@ fun AppNavGraph(navController: NavHostController = rememberNavController()) {
         }
 
         composable(Screen.AppInfo.route) {
-            AppInfoScreen()
+            AppInfoScreen(navController)
         }
     }
 }
