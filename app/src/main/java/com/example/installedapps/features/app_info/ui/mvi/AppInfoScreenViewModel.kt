@@ -9,7 +9,9 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -24,6 +26,9 @@ class AppInfoScreenViewModel @AssistedInject constructor(
     )
     val uiState = _uiState.asStateFlow()
 
+    private var _effectFlow: MutableSharedFlow<AppInfoScreenEffect> = MutableSharedFlow()
+    val effectFlow = _effectFlow.asSharedFlow()
+
     init {
         viewModelScope.launch {
             bindDataToState()
@@ -37,7 +42,9 @@ class AppInfoScreenViewModel @AssistedInject constructor(
 
     fun onEvent(event: AppInfoScreenEvent) {
         when (event) {
-            AppInfoScreenEvent.OpenAppButtonClicked -> TODO()
+            AppInfoScreenEvent.OpenAppButtonClicked -> viewModelScope.launch {
+                _effectFlow.emit(AppInfoScreenEffect.OpenApp)
+            }
         }
     }
 
