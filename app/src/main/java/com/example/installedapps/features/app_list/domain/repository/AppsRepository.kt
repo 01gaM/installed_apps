@@ -1,7 +1,7 @@
 package com.example.installedapps.features.app_list.domain.repository
 
-import com.example.installedapps.features.app_list.domain.model.AppInfo
+import com.example.installedapps.features.app_list.domain.model.AppListItem
 
 interface AppsRepository {
-    suspend fun getInstalledApps(): List<AppInfo>
+    suspend fun getInstalledApps(): List<AppListItem>
 }

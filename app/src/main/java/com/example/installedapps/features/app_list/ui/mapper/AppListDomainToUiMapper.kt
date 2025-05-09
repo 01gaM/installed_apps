@@ -1,9 +1,9 @@
 package com.example.installedapps.features.app_list.ui.mapper
 
-import com.example.installedapps.features.app_list.domain.model.AppInfo
-import com.example.installedapps.features.app_list.ui.model.AppListItem
+import com.example.installedapps.features.app_list.domain.model.AppListItem
+import com.example.installedapps.features.app_list.ui.model.AppListItemUiModel
 
-fun AppInfo.toUiModel() = AppListItem(
+fun AppListItem.toUiModel() = AppListItemUiModel(
     name = this.name,
     packageName = this.packageName
 )

@@ -29,6 +29,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.installedapps.R
 import com.example.installedapps.common.ui.theme.InstalledAppsTheme
+import com.example.installedapps.features.app_info.ui.model.AppInfoUiModel
 import com.example.installedapps.features.app_info.ui.mvi.AppInfoScreenEvent
 import com.example.installedapps.features.app_info.ui.mvi.AppInfoScreenState
 
@@ -74,7 +75,7 @@ fun AppInfoScreenContent(
                 .padding(paddingValues = contentPadding)
                 .padding(all = 16.dp)
         ) {
-            AppDescription(appInfo = state)
+            AppDescription(appInfo = state.appInfo)
 
             Spacer(modifier = Modifier.weight(1f))
 
@@ -113,7 +114,7 @@ private fun AppDescriptionField(
 }
 
 @Composable
-private fun AppDescription(appInfo: AppInfoScreenState) {
+private fun AppDescription(appInfo: AppInfoUiModel) {
     val fields = listOf(
         R.string.appInfoScreen_descriptionField_name to appInfo.name,
         R.string.appInfoScreen_descriptionField_version to appInfo.version,
@@ -140,10 +141,12 @@ private fun AppsListScreenContentPreview() {
     InstalledAppsTheme {
         AppInfoScreenContent(
             state = AppInfoScreenState(
-                name = "MyAppName",
-                version = "1.2.0",
-                packageName = "com.example.test",
-                checkSum = "checksum"
+                appInfo = AppInfoUiModel(
+                    name = "MyAppName",
+                    version = "1.2.0",
+                    packageName = "com.example.test",
+                    checkSum = "checksum"
+                )
             ),
             navController = rememberNavController(),
             onEvent = {}

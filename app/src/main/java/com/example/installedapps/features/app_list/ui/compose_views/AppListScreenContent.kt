@@ -26,7 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.installedapps.R
-import com.example.installedapps.features.app_list.ui.model.AppListItem
+import com.example.installedapps.features.app_list.ui.model.AppListItemUiModel
 import com.example.installedapps.features.app_list.ui.mvi.AppListScreenEvent
 import com.example.installedapps.common.ui.theme.InstalledAppsTheme
 import com.example.installedapps.features.app_list.ui.mvi.AppListScreenState
@@ -65,10 +65,12 @@ fun AppListScreenContent(
                 items(
                     items = state.installedApps,
                     key = { item -> item.packageName }
-                ) { appInfo ->
+                ) { appListItem ->
                     AppListItem(
-                        appListItem = appInfo,
-                        onClick = { onEvent(AppListScreenEvent.AppListItemClicked(appInfo.packageName)) }
+                        appListItem = appListItem,
+                        onClick = {
+                            onEvent(AppListScreenEvent.AppListItemClicked(appListItem.packageName))
+                        }
                     )
                 }
             }
@@ -96,7 +98,7 @@ private fun EmptyListPlaceholder(modifier: Modifier = Modifier) {
 @Composable
 private fun AppListItem(
     modifier: Modifier = Modifier,
-    appListItem: AppListItem,
+    appListItem: AppListItemUiModel,
     onClick: () -> Unit
 ) {
     Row(
@@ -134,11 +136,11 @@ private fun AppsListScreenContentPreview() {
         AppListScreenContent(
             state = AppListScreenState(
                 installedApps = listOf(
-                    AppListItem(
+                    AppListItemUiModel(
                         name = "name1",
                         packageName = "com.example.name1"
                     ),
-                    AppListItem(
+                    AppListItemUiModel(
                         name = "name2",
                         packageName = "com.example.name2"
                     )
