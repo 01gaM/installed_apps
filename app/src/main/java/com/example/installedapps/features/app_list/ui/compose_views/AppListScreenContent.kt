@@ -40,6 +40,8 @@ import com.example.installedapps.features.app_list.ui.model.AppListItemUiModel
 import com.example.installedapps.features.app_list.ui.mvi.AppListScreenEvent
 import com.example.installedapps.common.ui.theme.InstalledAppsTheme
 import com.example.installedapps.features.app_list.ui.mvi.AppListScreenState
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -51,7 +53,9 @@ fun AppListScreenContent(
     var appIconsList by remember { mutableStateOf(emptyList<BitmapPainter?>()) }
     LaunchedEffect(key1 = state.installedApps) {
         if (state.installedApps.isNotEmpty()) {
-            appIconsList = getAppIcons(installedApps = state.installedApps)
+            appIconsList = withContext(Dispatchers.Default) {
+                getAppIcons(installedApps = state.installedApps)
+            }
             onEvent(AppListScreenEvent.AppIconsLoaded)
         }
     }
