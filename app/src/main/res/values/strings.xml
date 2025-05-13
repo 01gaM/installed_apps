@@ -13,4 +13,5 @@
     <string name="appInfoScreen_descriptionField_version">Версия</string>
     <string name="appInfoScreen_descriptionField_packageName">Имя пакета</string>
     <string name="appInfoScreen_descriptionField_checkSum">Контрольная сумма (SHA-1)</string>
+    <string name="appInfoScreen_launchErrorToast">Приложение нельзя запустить</string>
 </resources>

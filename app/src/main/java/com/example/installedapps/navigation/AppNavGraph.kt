@@ -1,6 +1,7 @@
 package com.example.installedapps.navigation
 
 import android.content.Context
+import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
@@ -9,6 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.installedapps.R
 import com.example.installedapps.features.app_info.ui.AppInfoScreen
 import com.example.installedapps.features.app_list.ui.AppListScreen
 
@@ -58,7 +60,15 @@ private fun launchApp(
 ) {
     val packageManager = context.packageManager
     val launchIntent = packageManager.getLaunchIntentForPackage(packageName)
-    launchIntent?.let { context.startActivity(it) }
+    if (launchIntent != null) {
+        context.startActivity(launchIntent)
+    } else {
+        Toast.makeText(
+            context,
+            context.getString(R.string.appInfoScreen_launchErrorToast),
+            Toast.LENGTH_SHORT
+        ).show()
+    }
 }
 
 // endregion
