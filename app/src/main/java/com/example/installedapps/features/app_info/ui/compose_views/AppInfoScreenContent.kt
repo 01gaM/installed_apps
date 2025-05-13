@@ -3,10 +3,10 @@ package com.example.installedapps.features.app_info.ui.compose_views
 import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -100,7 +100,7 @@ private fun AppDescriptionField(
     title: String,
     description: String
 ) {
-    Row(modifier = modifier.fillMaxWidth()) {
+    Column(modifier = modifier.fillMaxWidth()) {
         Text(
             text = "$title: ",
             fontWeight = FontWeight.Bold,
@@ -110,6 +110,7 @@ private fun AppDescriptionField(
             text = description,
             color = MaterialTheme.colorScheme.onBackground
         )
+        Spacer(modifier = Modifier.height(16.dp))
     }
 }
 
