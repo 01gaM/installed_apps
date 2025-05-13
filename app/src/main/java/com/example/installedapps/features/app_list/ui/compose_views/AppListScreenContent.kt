@@ -38,7 +38,6 @@ fun AppListScreenContent(
     state: AppListScreenState,
     onEvent: (AppListScreenEvent) -> Unit
 ) {
-    // TODO: добавить обновление списка по свайпу/кнопке
     Scaffold(
         topBar = {
             TopAppBar(

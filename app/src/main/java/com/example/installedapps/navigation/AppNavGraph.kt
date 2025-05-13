@@ -1,6 +1,8 @@
 package com.example.installedapps.navigation
 
+import android.content.Context
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -12,6 +14,8 @@ import com.example.installedapps.features.app_list.ui.AppListScreen
 
 @Composable
 fun AppNavGraph(navController: NavHostController = rememberNavController()) {
+    val context = LocalContext.current
+
     NavHost(navController, startDestination = Screen.AppList.route) {
         composable(route = Screen.AppList.route) {
             AppListScreen(
@@ -33,9 +37,28 @@ fun AppNavGraph(navController: NavHostController = rememberNavController()) {
             backStackEntry.arguments?.getString("packageName")?.let { packageName ->
                 AppInfoScreen(
                     navController = navController,
-                    packageName = packageName
+                    packageName = packageName,
+                    onOpenApp = {
+                        launchApp(
+                            context = context,
+                            packageName = packageName
+                        )
+                    }
                 )
             }
         }
     }
 }
+
+// region private
+
+private fun launchApp(
+    context: Context,
+    packageName: String
+) {
+    val packageManager = context.packageManager
+    val launchIntent = packageManager.getLaunchIntentForPackage(packageName)
+    context.startActivity(launchIntent)
+}
+
+// endregion

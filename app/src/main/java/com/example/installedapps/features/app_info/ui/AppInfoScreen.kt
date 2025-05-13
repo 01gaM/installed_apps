@@ -13,7 +13,8 @@ import com.example.installedapps.features.app_info.ui.mvi.AppInfoScreenViewModel
 @Composable
 fun AppInfoScreen(
     navController: NavController,
-    packageName: String
+    packageName: String,
+    onOpenApp: () -> Unit
 ) {
     val viewModel: AppInfoScreenViewModel = hiltViewModel(
         creationCallback = { factory: AppInfoScreenViewModel.AppInfoScreenViewModelFactory ->
@@ -30,18 +31,22 @@ fun AppInfoScreen(
 
     LaunchedEffect(key1 = Unit) {
         viewModel.effectFlow.collect { effect ->
-            handleEffect(effect)
+            handleEffect(
+                effect = effect,
+                onOpenApp = onOpenApp
+            )
         }
     }
 }
 
 // region private
 
-private fun handleEffect(effect: AppInfoScreenEffect) {
+private fun handleEffect(
+    effect: AppInfoScreenEffect,
+    onOpenApp: () -> Unit
+) {
     when (effect) {
-        is AppInfoScreenEffect.OpenApp -> {
-            // TODO
-        }
+        is AppInfoScreenEffect.OpenApp -> onOpenApp()
     }
 }
 
