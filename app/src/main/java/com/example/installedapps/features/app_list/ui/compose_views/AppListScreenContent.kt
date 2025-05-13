@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -52,25 +53,29 @@ fun AppListScreenContent(
             )
         }
     ) { paddingValues ->
-        if (state.installedApps.isEmpty()) {
-            EmptyListPlaceholder(modifier = Modifier.padding(paddingValues = paddingValues))
+        if (state.isLoading) {
+            LoaderPlaceholder(modifier = Modifier.padding(paddingValues = paddingValues))
         } else {
-            LazyColumn(
-                modifier = modifier
-                    .padding(paddingValues = paddingValues)
-                    .fillMaxSize()
-                    .background(color = MaterialTheme.colorScheme.background)
-            ) {
-                items(
-                    items = state.installedApps,
-                    key = { item -> item.packageName }
-                ) { appListItem ->
-                    AppListItem(
-                        appListItem = appListItem,
-                        onClick = {
-                            onEvent(AppListScreenEvent.AppListItemClicked(appListItem.packageName))
-                        }
-                    )
+            if (state.installedApps.isEmpty()) {
+                EmptyListPlaceholder(modifier = Modifier.padding(paddingValues = paddingValues))
+            } else {
+                LazyColumn(
+                    modifier = modifier
+                        .padding(paddingValues = paddingValues)
+                        .fillMaxSize()
+                        .background(color = MaterialTheme.colorScheme.background)
+                ) {
+                    items(
+                        items = state.installedApps,
+                        key = { item -> item.packageName }
+                    ) { appListItem ->
+                        AppListItem(
+                            appListItem = appListItem,
+                            onClick = {
+                                onEvent(AppListScreenEvent.AppListItemClicked(appListItem.packageName))
+                            }
+                        )
+                    }
                 }
             }
         }
@@ -91,6 +96,18 @@ private fun EmptyListPlaceholder(modifier: Modifier = Modifier) {
             text = stringResource(R.string.appListScreen_emptyState),
             color = MaterialTheme.colorScheme.secondary
         )
+    }
+}
+
+@Composable
+private fun LoaderPlaceholder(modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .background(color = MaterialTheme.colorScheme.background),
+        contentAlignment = Alignment.Center
+    ) {
+        CircularProgressIndicator()
     }
 }
 

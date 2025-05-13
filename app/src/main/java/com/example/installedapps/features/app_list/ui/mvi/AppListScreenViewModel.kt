@@ -40,9 +40,16 @@ class AppListScreenViewModel @Inject constructor(
     // region private
 
     private suspend fun bindDataToState() {
+        _uiState.update {
+            it.copy(isLoading = true)
+        }
+
         val installedAppsList = getInstalledAppsUseCase().map { it.toUiModel() }
         _uiState.update {
-            it.copy(installedApps = installedAppsList)
+            it.copy(
+                installedApps = installedAppsList,
+                isLoading = false
+            )
         }
     }
 
