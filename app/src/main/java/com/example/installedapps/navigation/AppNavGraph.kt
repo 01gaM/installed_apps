@@ -58,7 +58,7 @@ private fun launchApp(
 ) {
     val packageManager = context.packageManager
     val launchIntent = packageManager.getLaunchIntentForPackage(packageName)
-    context.startActivity(launchIntent)
+    launchIntent?.let { context.startActivity(it) }
 }
 
 // endregion

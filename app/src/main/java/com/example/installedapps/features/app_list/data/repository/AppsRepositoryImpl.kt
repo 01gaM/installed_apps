@@ -4,6 +4,8 @@ import android.content.pm.PackageManager
 import com.example.installedapps.features.app_info.domain.model.AppInfo
 import com.example.installedapps.features.app_list.domain.model.AppListItem
 import com.example.installedapps.features.app_list.domain.repository.AppsRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.security.MessageDigest
 import javax.inject.Inject
@@ -11,9 +13,9 @@ import javax.inject.Inject
 class AppsRepositoryImpl @Inject constructor(
     private val packageManager: PackageManager
 ) : AppsRepository {
-    override suspend fun getInstalledApps(): List<AppListItem> {
+    override suspend fun getInstalledApps(): List<AppListItem> = withContext(Dispatchers.IO) {
         val apps = packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
-        return apps.map {
+        apps.map {
             AppListItem(
                 name = packageManager.getApplicationLabel(it).toString(),
                 packageName = it.packageName
@@ -21,8 +23,8 @@ class AppsRepositoryImpl @Inject constructor(
         }.sortedBy { it.name.lowercase() }
     }
 
-    override suspend fun getAppInfo(packageName: String): AppInfo? {
-        return try {
+    override suspend fun getAppInfo(packageName: String): AppInfo? = withContext(Dispatchers.IO) {
+        try {
             val packageInfo = packageManager.getPackageInfo(packageName, 0)
             val appInfo = packageInfo.applicationInfo
             appInfo?.let {
@@ -37,7 +39,7 @@ class AppsRepositoryImpl @Inject constructor(
                     packageName = packageName,
                     checkSum = checksum
                 )
-            } ?: return null
+            }
         } catch (e: PackageManager.NameNotFoundException) {
             null
         }
